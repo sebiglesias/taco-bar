@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taco Bar Party Calculator | How Much Meat, Tortillas & Toppings per Person?</title>
+    <meta name="description" content="Free Taco Bar Calculator for parties and catering. Calculate exact pounds of ground beef, chicken, tortillas, cheese, guacamole, and salsa for 10 to 200 guests.">
+    <meta name="keywords" content="taco bar calculator, how much taco meat for 50 people, taco party calculator, how many tacos per person, taco bar grocery list">
+    <link rel="canonical" href="https://sebiglesias.com.ar/taco-bar/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Taco Bar Party Calculator | Meat, Tortillas & Toppings">
+    <meta property="og:description" content="Planning a taco night or party? Calculate exactly how much taco meat, shells, cheese, and salsa you need for any crowd.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sebiglesias.com.ar/taco-bar/">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2BNDBQP0W7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-2BNDBQP0W7');
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3381238987477190" crossorigin="anonymous"></script>
+
+    <!-- Schema.org WebApplication & FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "Taco Bar Party Calculator",
+          "url": "https://sebiglesias.com.ar/taco-bar/",
+          "applicationCategory": "UtilityApplication",
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Calculate meat in pounds, tortillas, and toppings for hosting a taco bar party."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How much taco meat do I need for 50 people?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For 50 guests, you need approximately 18 to 20 pounds of raw ground beef or boneless chicken breast (which cooks down to about 13-15 lbs of cooked filling, allowing 3 tacos of 1.5 oz each per guest)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How many tacos do you plan per person at a taco bar?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Plan for 3 tacos per adult and 2 tacos per child. Always purchase 20% extra taco shells or tortillas to account for broken shells or hungry guests."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body class="bg-amber-50/30 text-stone-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-amber-200 sticky top-0 z-20">
+        <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🌮</span>
+                <div>
+                    <h1 class="text-lg font-bold text-stone-900 leading-tight">Taco Bar Party Calculator</h1>
+                    <p class="text-xs text-stone-500">Meat, tortillas & topping grocery list for any crowd</p>
+                </div>
+            </div>
+            <a href="https://sebiglesias.com.ar" class="text-xs font-medium text-amber-700 hover:text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                ← More Microapps
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto px-4 py-6 w-full flex-grow space-y-6">
+
+        <!-- Calculator Card (Above The Fold) -->
+        <section class="bg-white rounded-2xl shadow-sm border border-stone-200 p-5 md:p-6 space-y-5">
+            
+            <!-- Guest Count -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <label class="text-sm font-semibold text-stone-900">Total Guests:</label>
+                    <span class="text-xl font-bold text-amber-600 bg-amber-50 px-3 py-0.5 rounded-lg border border-amber-200" id="lbl-guests">25 guests</span>
+                </div>
+                <input type="range" id="rng-guests" min="5" max="150" step="5" value="25" oninput="updateGuests(this.value)" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+                <div class="flex justify-between text-[11px] text-stone-400 mt-1">
+                    <span>5 guests</span>
+                    <span>25 (casual)</span>
+                    <span>50 (party)</span>
+                    <span>100+ (catering)</span>
+                </div>
+            </div>
+
+            <!-- Protein Mix -->
+            <div>
+                <label class="block text-sm font-semibold text-stone-900 mb-2">Protein Selection:</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <button type="button" onclick="setProtein('mix')" id="btn-mix" class="prot-btn p-3 rounded-xl border-2 text-left transition border-amber-500 bg-amber-50/60">
+                        <div class="font-bold text-sm text-stone-900">🥩🍗 50/50 Combo</div>
+                        <div class="text-xs text-stone-500 mt-0.5">Ground Beef + Shredded Chicken</div>
+                    </button>
+                    <button type="button" onclick="setProtein('beef')" id="btn-beef" class="prot-btn p-3 rounded-xl border border-stone-200 text-left transition hover:border-stone-300">
+                        <div class="font-bold text-sm text-stone-900">🥩 All Ground Beef</div>
+                        <div class="text-xs text-stone-500 mt-0.5">Classic seasoned beef (80/20)</div>
+                    </button>
+                    <button type="button" onclick="setProtein('chicken')" id="btn-chicken" class="prot-btn p-3 rounded-xl border border-stone-200 text-left transition hover:border-stone-300">
+                        <div class="font-bold text-sm text-stone-900">🍗 All Chicken</div>
+                        <div class="text-xs text-stone-500 mt-0.5">Slow-cooked salsa chicken</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Taco Appetite -->
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Average Tacos / Guest</label>
+                    <select id="sel-appetite" onchange="calc()" class="w-full p-2 border border-stone-300 rounded-lg text-sm bg-stone-50 font-medium">
+                        <option value="2.5">Light / Kids (2.5 tacos)</option>
+                        <option value="3" selected>Standard Crowd (3 tacos)</option>
+                        <option value="4">Big Eaters / Game Day (4 tacos)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-stone-700 mb-1">Include Sides?</label>
+                    <select id="sel-sides" onchange="calc()" class="w-full p-2 border border-stone-300 rounded-lg text-sm bg-stone-50 font-medium">
+                        <option value="yes" selected>Yes (Rice & Beans included)</option>
+                        <option value="no">Tacos Only (No sides)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Results Grocery List -->
+            <div class="bg-gradient-to-br from-amber-600 to-orange-700 rounded-xl p-5 text-white shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-amber-400/50 pb-3">
+                    <span class="text-xs uppercase tracking-wider font-semibold text-amber-100">Recommended Grocery List</span>
+                    <span class="text-xs font-bold bg-white/20 px-2.5 py-0.5 rounded-full" id="txt-total-tacos">75 tacos total</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                    <div class="bg-white/10 rounded-lg p-2.5">
+                        <div class="text-2xl sm:text-3xl font-extrabold" id="res-meat-lbs">10 lbs</div>
+                        <div class="text-xs text-amber-100 mt-0.5" id="lbl-meat-type">Raw Meat Total</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-2.5">
+                        <div class="text-2xl sm:text-3xl font-extrabold" id="res-tortillas">90 ct</div>
+                        <div class="text-xs text-amber-100 mt-0.5">Tortillas & Shells</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-2.5">
+                        <div class="text-2xl sm:text-3xl font-extrabold" id="res-cheese">3 lbs</div>
+                        <div class="text-xs text-amber-100 mt-0.5">Shredded Cheese</div>
+                    </div>
+                    <div class="bg-white/10 rounded-lg p-2.5">
+                        <div class="text-2xl sm:text-3xl font-extrabold" id="res-guac">48 oz</div>
+                        <div class="text-xs text-amber-100 mt-0.5">Guacamole + Salsa</div>
+                    </div>
+                </div>
+
+                <div id="box-protein-breakdown" class="bg-black/15 rounded-lg p-2.5 text-xs text-amber-100 text-center">
+                    🥩 <strong>Meat Breakdown:</strong> <span class="font-bold text-white" id="txt-breakdown">5 lbs Ground Beef + 5 lbs Chicken Breast</span> (factoring 25% cooking shrinkage).
+                </div>
+
+                <div class="text-xs text-amber-100 bg-white/10 rounded-lg p-2.5 space-y-1">
+                    <div class="font-semibold text-white">Toppings & Sides List:</div>
+                    <div id="txt-toppings-list">• Sour Cream: 32 oz | Shredded Lettuce: 2 bags | Diced Tomatoes: 2.5 lbs | Salsa: 48 oz</div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-2 flex flex-col sm:flex-row gap-2">
+                    <button onclick="copyGroceryList()" id="btn-copy" class="w-full py-2.5 px-4 bg-white text-stone-900 hover:bg-stone-100 active:scale-[0.99] font-bold rounded-lg text-sm transition shadow-sm flex items-center justify-center gap-2">
+                        <span>📋</span> Copy Full Shopping List
+                    </button>
+                    <button onclick="shareTextMsg()" class="w-full sm:w-auto py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg text-sm transition flex items-center justify-center gap-1">
+                        <span>💬</span> Share via Text
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Reserved AdSense Ad Unit -->
+        <div class="w-full min-h-[100px] flex items-center justify-center bg-stone-100 border border-dashed border-stone-300 rounded-xl text-stone-400 text-xs">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3381238987477190"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <!-- FAQ & Catering Pro Tips (SEO & E-E-A-T) -->
+        <section class="bg-white rounded-2xl border border-stone-200 p-6 space-y-5 text-stone-700 text-sm">
+            <h2 class="text-lg font-bold text-stone-900">The Golden Rules of Hosting a Taco Bar</h2>
+
+            <div class="space-y-2">
+                <h3 class="font-semibold text-stone-900">How much meat cooks down per pound?</h3>
+                <p class="text-stone-600">
+                    Raw 80/20 ground beef loses about <strong>25% to 30% of its volume</strong> after rendering fat and simmering with taco seasoning. For every pound of raw ground beef, expect about 11 to 12 ounces of cooked taco filling. Boneless, skinless chicken breast retains roughly 80% of its weight.
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="font-semibold text-stone-900">Hard shells vs. soft flour or corn tortillas?</h3>
+                <p class="text-stone-600">
+                    A crowd-pleasing taco bar uses a <strong>60/40 ratio</strong> of soft street-taco size tortillas (flour and yellow corn) to hard crispy shells. Always buy 15% to 20% extra shells because hard shells frequently break in the box or during buffet handling.
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="font-semibold text-stone-900">How to keep taco meat warm for a crowd?</h3>
+                <p class="text-stone-600">
+                    Use 2-quart or 3-quart mini slow cookers (Crock-Pots) set to "Warm" with a splash of broth or salsa at the bottom to keep the taco meat juicy for hours without burning.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-stone-200 py-6 text-center text-xs text-stone-500">
+        <p>Free Taco Bar Party Planner created by <a href="https://sebiglesias.com.ar" class="text-stone-800 font-semibold hover:underline">Sebastián Iglesias</a> · Happy Fiesta!</p>
+    </footer>
+
+    <!-- Calculation Script -->
+    <script>
+        let guests = 25;
+        let proteinChoice = 'mix'; // 'mix', 'beef', 'chicken'
+
+        function updateGuests(val) {
+            guests = parseInt(val, 10);
+            document.getElementById('lbl-guests').textContent = `${guests} guests`;
+            calc();
+        }
+
+        function setProtein(p) {
+            proteinChoice = p;
+            ['mix', 'beef', 'chicken'].forEach(k => {
+                const btn = document.getElementById('btn-' + k);
+                if (k === p) {
+                    btn.className = "prot-btn p-3 rounded-xl border-2 text-left transition border-amber-500 bg-amber-50/60";
+                } else {
+                    btn.className = "prot-btn p-3 rounded-xl border border-stone-200 text-left transition hover:border-stone-300";
+                }
+            });
+            calc();
+        }
+
+        function calc() {
+            const tacosPerGuest = parseFloat(document.getElementById('sel-appetite').value);
+            const hasSides = document.getElementById('sel-sides').value === 'yes';
+            const totalTacos = Math.round(guests * tacosPerGuest);
+
+            document.getElementById('txt-total-tacos').textContent = `${totalTacos} tacos total`;
+
+            // Each taco needs ~1.5 oz cooked meat = ~2.0 oz raw meat
+            // If sides are included, guests eat ~10% less meat
+            const meatFactor = hasSides ? 0.38 : 0.44; // lbs raw meat per guest at 3 tacos
+            const totalRawLbs = Math.max(2, Math.ceil(guests * (tacosPerGuest / 3) * meatFactor));
+
+            document.getElementById('res-meat-lbs').textContent = `${totalRawLbs} lbs`;
+
+            // Breakdown
+            const breakdownEl = document.getElementById('txt-breakdown');
+            if (proteinChoice === 'mix') {
+                const beefLbs = Math.ceil(totalRawLbs / 2);
+                const chickenLbs = totalRawLbs - beefLbs;
+                breakdownEl.textContent = `${beefLbs} lbs Ground Beef + ${chickenLbs} lbs Chicken Breast`;
+            } else if (proteinChoice === 'beef') {
+                breakdownEl.textContent = `${totalRawLbs} lbs 80/20 Ground Beef + ${Math.ceil(totalRawLbs * 0.8)} packs taco seasoning`;
+            } else {
+                breakdownEl.textContent = `${totalRawLbs} lbs Boneless Chicken Breast (slow-cooked with salsa)`;
+            }
+
+            // Tortillas: 1.2x total tacos (buffer for breakage)
+            const tortillas = Math.ceil(totalTacos * 1.2);
+            document.getElementById('res-tortillas').textContent = `${tortillas} ct`;
+
+            // Cheese: ~1.5 to 2 oz per guest
+            const cheeseLbs = Math.max(1, Math.ceil(guests * 0.12));
+            document.getElementById('res-cheese').textContent = `${cheeseLbs} lbs`;
+
+            // Guac and Salsa
+            const guacOz = Math.round(guests * 1.5);
+            const salsaOz = Math.round(guests * 2.0);
+            document.getElementById('res-guac').textContent = `${guacOz + salsaOz} oz`;
+
+            // Toppings list
+            const sourCreamOz = Math.round(guests * 1.2);
+            const lettuceBags = Math.max(1, Math.ceil(guests / 12));
+            const tomatoesLbs = (guests * 0.1).toFixed(1);
+
+            let toppingsStr = `• Sour Cream: ${sourCreamOz} oz | Lettuce: ${lettuceBags} bag(s) | Diced Tomatoes: ${tomatoesLbs} lbs | Salsa: ${salsaOz} oz | Guac: ${guacOz} oz`;
+            if (hasSides) {
+                const riceCups = Math.ceil(guests * 0.3);
+                const beansCans = Math.ceil(guests * 0.35);
+                toppingsStr += ` | Rice: ${riceCups} cups dry | Black/Refried Beans: ${beansCans} cans (15 oz)`;
+            }
+            document.getElementById('txt-toppings-list').textContent = toppingsStr;
+        }
+
+        function getFullShoppingList() {
+            const meat = document.getElementById('res-meat-lbs').textContent;
+            const meatBreakdown = document.getElementById('txt-breakdown').textContent;
+            const tortillas = document.getElementById('res-tortillas').textContent;
+            const cheese = document.getElementById('res-cheese').textContent;
+            const toppings = document.getElementById('txt-toppings-list').textContent;
+
+            return `🌮 *TACO BAR PARTY GROCERY LIST* (${guests} Guests)\n\n` +
+                   `• Meat: ${meat} raw (${meatBreakdown})\n` +
+                   `• Tortillas & Shells: ${tortillas} count\n` +
+                   `• Shredded Mexican Cheese: ${cheese}\n` +
+                   `${toppings}\n\n` +
+                   `Calculated with: https://sebiglesias.com.ar/taco-bar/`;
+        }
+
+        function copyGroceryList() {
+            navigator.clipboard.writeText(getFullShoppingList()).then(() => {
+                const btn = document.getElementById('btn-copy');
+                const old = btn.innerHTML;
+                btn.innerHTML = '<span>✓</span> Copied to Clipboard!';
+                setTimeout(() => btn.innerHTML = old, 2000);
+            });
+        }
+
+        function shareTextMsg() {
+            const text = encodeURIComponent(getFullShoppingList());
+            window.open(`sms:?body=${text}`, '_blank');
+        }
+
+        // Init
+        calc();
+    </script>
+</body>
+</html>
